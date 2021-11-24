@@ -22,6 +22,11 @@ inputs:
     # example:
     #   `s/.*Downloaded:[^0-9]*([0-9.]+).*/\1/p`
 
+  curl_flags:
+    description: 'additional curl flags'
+    # example:
+    #   `-H 'Cache-Control: no-cache'`
+
   deps_repo_owner:
     description: 'Owner of a repository used to checkout dependencies'
     required: true
@@ -64,6 +69,7 @@ runs:
         echo "stat_entity_path=${{ inputs.stat_entity_path }}" >> $GITHUB_ENV
         echo "query_url=${{ inputs.query_url }}" >> $GITHUB_ENV
         echo "downloads_sed_regexp=${{ inputs.downloads_sed_regexp }}" >> $GITHUB_ENV
+        echo "curl_flags=${{ inputs.curl_flags }}" >> $GITHUB_ENV
 
     - name: allocate directories
       shell: bash
