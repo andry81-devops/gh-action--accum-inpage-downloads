@@ -38,7 +38,7 @@
 • <a href="#copyright-and-license"><img src="https://github.com/andry81/andry81/raw/master/badges/mit-license.svg" valign="middle" alt="copyright and license" />&nbsp;Copyright and License</a>
 </p>
 
-<h4 align="center">GitHub composite action to request and accumulate inpage downloads.<br/>
+<h4 align="center">GitHub composite action to request and accumulate downloads statistic as a value on a web page.<br/>
 <br/>
 Tutorial to use with: https://github.com/andry81/github-accum-stats</h4>
 
