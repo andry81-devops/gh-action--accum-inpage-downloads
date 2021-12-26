@@ -65,7 +65,7 @@ Tutorial to use with: https://github.com/andry81/github-accum-stats</h4>
 
 ## Examples:
 
-`./github/workflows/accum-mypage-download-stats.yml`:
+`.github/workflows/accum-mypage-download-stats.yml`:
 
 ```yml
 # based on: https://github.com/andry81/github-accum-stats
