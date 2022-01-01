@@ -95,6 +95,9 @@ jobs:
             -H 'Cache-Control: no-cache'
 
           deps_repo_owner:          {{REPO_OWNER}}
+          deps_repo_branch:         master
+          deps_repo_read_token:     ${{ github.token }}
+
           stat_entity_path:         mypage/{{REPO}}
 
           output_repo_owner:        {{REPO_OWNER}}
