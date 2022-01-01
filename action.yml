@@ -60,17 +60,13 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: head annotations
-      shell: bash
-      run: |
-        echo "::notice ::output repo dir: https://github.com/${{ inputs.output_repo_owner }}/${{ inputs.output_repo }}/tree/${{ inputs.output_repo_branch }}/${{ inputs.output_repo_dir }}"
-
     # step is required to workaround variable expansion in variables
     - name: declare dependent variables
       shell: bash
       run: |
-        echo "stats_dir=${{ inputs.output_repo_dir }}" >> $GITHUB_ENV
-        echo "stats_json=${{ inputs.output_repo_dir }}/latest.json" >> $GITHUB_ENV
+        echo "GH_WORKFLOW_ROOT=$GITHUB_WORKSPACE/gh-workflow" >> $GITHUB_ENV
+        echo "stats_dir=$GITHUB_WORKSPACE/inpage-downloads/${{ inputs.output_repo_dir }}" >> $GITHUB_ENV
+        echo "stats_json=$GITHUB_WORKSPACE/inpage-downloads/${{ inputs.output_repo_dir }}/latest.json" >> $GITHUB_ENV
         echo "stat_entity_path=${{ inputs.stat_entity_path }}" >> $GITHUB_ENV
         echo "query_url=${{ inputs.query_url }}" >> $GITHUB_ENV
         echo "downloads_sed_regexp=${{ inputs.downloads_sed_regexp }}" >> $GITHUB_ENV
@@ -79,7 +75,7 @@ runs:
     - name: allocate directories
       shell: bash
       run: |
-        mkdir $GITHUB_WORKSPACE/gh-workflow $GITHUB_WORKSPACE/inpage-downloads
+        mkdir -p $GH_WORKFLOW_ROOT $GITHUB_WORKSPACE/inpage-downloads/${{ inputs.output_repo_dir }}
         echo "WORKFLOW_TEMPDIR=$(mktemp -d)" >> $GITHUB_ENV
 
     - name: checkout gh-workflow
@@ -87,6 +83,13 @@ runs:
       with:
         repository: ${{ inputs.deps_repo_owner }}/gh-workflow
         path:       gh-workflow
+
+    - name: head annotations
+      shell: bash
+      run: |
+        chmod ug+x $GH_WORKFLOW_ROOT/bash/github/print-notice.sh
+        $GH_WORKFLOW_ROOT/bash/github/print-notice.sh \
+          "output repo dir: https://github.com/${{ inputs.output_repo_owner }}/${{ inputs.output_repo }}/tree/${{ inputs.output_repo_branch }}/${{ inputs.output_repo_dir }}"
 
     - name: checkout inpage-downloads
       uses: actions/checkout@v2
@@ -106,9 +109,8 @@ runs:
       id: accum-downloads
       shell: bash
       run: |
-        cd $GITHUB_WORKSPACE/inpage-downloads
-        chmod ug+x $GITHUB_WORKSPACE/gh-workflow/bash/inpage/accum-downloads.sh
-        $GITHUB_WORKSPACE/gh-workflow/bash/inpage/accum-downloads.sh
+        chmod ug+x $GH_WORKFLOW_ROOT/bash/inpage/accum-downloads.sh
+        $GH_WORKFLOW_ROOT/bash/inpage/accum-downloads.sh
         # caution: no operation after that line if non zero exit code happens above
 
     - name: commit inpage-downloads
