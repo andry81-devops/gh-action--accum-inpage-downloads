@@ -9,7 +9,7 @@
 #
 
 name: accum-inpage-downloads
-description: 'GitHub composite action to request and accumulate downloads statistic as a value on a web page'
+description: 'GitHub composite action to request and accumulate downloads statistic from a value on a web page'
 
 inputs:
   query_url:
