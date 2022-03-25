@@ -108,18 +108,20 @@ runs:
     - name: declare variables from lists
       shell: bash
       run: |
-        $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh ${{ inputs.env }}
+        $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh \
+          ${{ inputs.env }}
 
     - name: declare local variables
       shell: bash
       run: |
-        echo "changelog_dir=$GITHUB_WORKSPACE/inpage-downloads/${{ inputs.output_repo_dir }}" >> $GITHUB_ENV
-        echo "stats_dir=$GITHUB_WORKSPACE/inpage-downloads/${{ inputs.output_repo_dir }}" >> $GITHUB_ENV
-        echo "stats_json=$GITHUB_WORKSPACE/inpage-downloads/${{ inputs.output_repo_dir }}/latest.json" >> $GITHUB_ENV
-        echo "stat_entity_path=${{ inputs.stat_entity_path }}" >> $GITHUB_ENV
-        echo "query_url=${{ inputs.query_url }}" >> $GITHUB_ENV
-        echo "downloads_sed_regexp=${{ inputs.downloads_sed_regexp }}" >> $GITHUB_ENV
-        echo "curl_flags=${{ inputs.curl_flags }}" >> $GITHUB_ENV
+        $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh \
+          "changelog_dir=$GITHUB_WORKSPACE/inpage-downloads/${{ inputs.output_repo_dir }}" \
+          "stats_dir=$GITHUB_WORKSPACE/inpage-downloads/${{ inputs.output_repo_dir }}" \
+          "stats_json=$GITHUB_WORKSPACE/inpage-downloads/${{ inputs.output_repo_dir }}/latest.json" \
+          "stat_entity_path=${{ inputs.stat_entity_path }}" \
+          "query_url=${{ inputs.query_url }}" \
+          "downloads_sed_regexp=${{ inputs.downloads_sed_regexp }}" \
+          "curl_flags=${{ inputs.curl_flags }}"
 
     - name: allocate directories
       shell: bash
