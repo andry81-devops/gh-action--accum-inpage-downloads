@@ -92,6 +92,7 @@ jobs:
           downloads_sed_regexp:     s/.*Downloaded:[^0-9]*([0-9.]+).*/\1/p
 
           curl_flags: >-
+            -v
             -H 'Cache-Control: no-cache'
 
           deps_repo_owner:          {{REPO_OWNER}}
