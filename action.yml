@@ -97,7 +97,7 @@ runs:
         mkdir -p $GH_WORKFLOW_ROOT
 
     - name: checkout gh-workflow@${{ inputs.deps_repo_branch }}
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: ${{ inputs.deps_repo_owner }}/gh-workflow
         ref:        ${{ inputs.deps_repo_branch }}
@@ -143,7 +143,7 @@ runs:
           "output repo dir: https://github.com/${{ inputs.output_repo_owner }}/${{ inputs.output_repo }}/tree/${{ inputs.output_repo_branch }}/${{ inputs.output_repo_dir }}"
 
     - name: checkout inpage-downloads@${{ inputs.output_repo_branch }}
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: ${{ inputs.output_repo_owner }}/${{ inputs.output_repo }}
         ref:        ${{ inputs.output_repo_branch }}
