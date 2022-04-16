@@ -78,11 +78,6 @@ runs:
       run: |
         echo "GH_WORKFLOW_ROOT=$GITHUB_WORKSPACE/gh-workflow" >> $GITHUB_ENV
 
-    - name: allocate gh-workflow directory
-      shell: bash
-      run: |
-        mkdir -p $GH_WORKFLOW_ROOT
-
     - name: checkout gh-workflow@${{ inputs.deps_repo_branch }}
       uses: andry81-devops/gh-action--git-checkout@master
       with:
@@ -90,6 +85,9 @@ runs:
         ref:        ${{ inputs.deps_repo_branch }}
         path:       gh-workflow
         token:      ${{ inputs.deps_repo_read_token }}
+
+        mkdir-p: >-
+          ${{ env.GH_WORKFLOW_ROOT }}
 
     - name: update permissions
       shell: bash
@@ -120,7 +118,6 @@ runs:
     - name: allocate directories
       shell: bash
       run: |
-        mkdir -p $GITHUB_WORKSPACE/inpage-downloads/${{ inputs.output_repo_dir }}
         echo "WORKFLOW_TEMPDIR=$(mktemp -d)" >> $GITHUB_ENV
 
     - name: head annotations
@@ -136,6 +133,9 @@ runs:
         ref:        ${{ inputs.output_repo_branch }}
         path:       inpage-downloads
         token:      ${{ inputs.output_repo_write_token }}
+
+        mkdir-p: >-
+          ${{ inputs.output_repo_dir }}
 
     - name: accumulate ${{ inputs.stat_entity_path }}
       id: accum-downloads
