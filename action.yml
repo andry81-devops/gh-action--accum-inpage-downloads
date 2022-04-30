@@ -68,6 +68,7 @@ inputs:
     #   ENABLE_GENERATE_CHANGELOG_FILE=1
     #   ENABLE_PRINT_CURL_RESPONSE_ON_ERROR=1
     #   ENABLE_COMMIT_MESSAGE_DATE_WITH_TIME=1  # insert the time string in format HH:MMZ additionally after the date in each commit message
+    #   CHANGELOG_FILE=changelog.txt
 
 runs:
   using: "composite"
@@ -107,18 +108,24 @@ runs:
       shell: bash
       run: |
         $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh \
-          "changelog_dir=$GITHUB_WORKSPACE/inpage-downloads/${{ inputs.output_repo_dir }}" \
+          "CHANGELOG_FILE=$GITHUB_WORKSPACE/inpage-downloads/${{ inputs.output_repo_dir }}/${{ env.CHANGELOG_FILE }}" \
           "stats_dir=$GITHUB_WORKSPACE/inpage-downloads/${{ inputs.output_repo_dir }}" \
-          "stats_json=$GITHUB_WORKSPACE/inpage-downloads/${{ inputs.output_repo_dir }}/latest.json" \
           "stat_entity_path=${{ inputs.stat_entity_path }}" \
           "query_url=${{ inputs.query_url }}" \
           "downloads_sed_regexp=${{ inputs.downloads_sed_regexp }}" \
           "curl_flags=${{ inputs.curl_flags }}"
 
+    - name: declare local variables
+      shell: bash
+      run: |
+        $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh \
+          "changelog_dir=${CHANGELOG_FILE%/*}"
+
     - name: allocate directories
       shell: bash
       run: |
-        echo "WORKFLOW_TEMPDIR=$(mktemp -d)" >> $GITHUB_ENV
+        $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh \
+          "WORKFLOW_TEMPDIR=$(mktemp -d)"
 
     - name: head annotations
       shell: bash
@@ -136,6 +143,7 @@ runs:
 
         mkdir-p: >-
           ${{ inputs.output_repo_dir }}
+          ${{ env.changelog_dir }}
 
     - name: accumulate ${{ inputs.stat_entity_path }}
       id: accum-downloads
