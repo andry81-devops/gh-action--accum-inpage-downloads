@@ -32,9 +32,11 @@ inputs:
     description: 'PAT token to a repository used to checkout dependencies'
     default: ${{ github.token }}
 
-  stat_entity_path:
-    description: 'Statistic entity path to request'
-    required: true
+  commit_msg_entity:
+    description: 'Commit message entity'
+    # examples:
+    # - my-download-link-1
+    # - my-download-link-2
 
   output_repo_owner:
     description: 'Owner of a repository used to output the statistic'
@@ -115,8 +117,8 @@ runs:
       run: |
         $GH_WORKFLOW_ROOT/bash/github/set-env-from-args.sh \
           "CHANGELOG_FILE=$GITHUB_WORKSPACE/inpage-downloads/${{ inputs.output_repo_dir }}/$CHANGELOG_FILE" \
+          "commit_msg_entity=${{ inputs.commit_msg_entity }}" \
           "stats_dir=$GITHUB_WORKSPACE/inpage-downloads/${{ inputs.output_repo_dir }}" \
-          "stat_entity_path=${{ inputs.stat_entity_path }}" \
           "query_url=${{ inputs.query_url }}" \
           "downloads_sed_regexp=${{ inputs.downloads_sed_regexp }}" \
           "curl_flags=${{ inputs.curl_flags }}"
@@ -145,7 +147,7 @@ runs:
           ${{ inputs.output_repo_dir }}
           ${{ env.changelog_dir }}
 
-    - name: accumulate ${{ inputs.stat_entity_path }}
+    - name: accumulate inpage-downloads
       id: accum-downloads
       shell: bash
       run: |
@@ -159,7 +161,7 @@ runs:
         git add .
         git config --global user.name "GitHub Action"
         git config --global user.email "action@github.com"
-        git commit -m "A/U: $COMMIT_MESSAGE_DATE_TIME_PREFIX: ${COMMIT_MESSAGE_PREFIX}${COMMIT_MESSAGE_PREFIX:+" | "}$COMMIT_MESSAGE_SUFFIX"
+        git commit -m "A/U: $COMMIT_MESSAGE_DATE_TIME_PREFIX: ${COMMIT_MESSAGE_PREFIX}${COMMIT_MESSAGE_SUFFIX:+" | "}$COMMIT_MESSAGE_SUFFIX"
 
     - name: push inpage-downloads
       uses: ad-m/github-push-action@master

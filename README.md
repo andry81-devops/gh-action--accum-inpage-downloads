@@ -116,7 +116,7 @@ jobs:
           deps_repo_branch:         master
           deps_repo_read_token:     ${{ github.token }}
 
-          stat_entity_path:         mypage/{{REPO}}
+          commit_msg_entity:        my-download-link-1
 
           output_repo_owner:        {{REPO_OWNER}}
           output_repo:              {{REPO}}--download-stats
