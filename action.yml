@@ -4,6 +4,10 @@
 name: accum-inpage-downloads
 description: 'GitHub composite action to request and accumulate downloads statistic from a value on a web page'
 
+branding:
+  icon:  download
+  color: blue
+
 inputs:
   query_url:
     description: 'URL to query a page with downloads value'
