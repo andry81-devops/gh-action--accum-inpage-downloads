@@ -97,6 +97,12 @@ All tutorials: https://github.com/andry81/index#tutorials
 * `ENABLE_PRINT_CURL_RESPONSE_ON_ERROR=1`:
   Prints curl response in case of an error (by default only the progress prints).
 
+* `YAML_OUTPUT_LR=<%-encoded string>`:
+  Adds characters to each line end of yaml output file (last LF can be omitted).
+
+* `CHANGELOG_FILE_LR=<%-encoded string>`:
+  Adds characters to each line end of changelog output file (last LF can be omitted).
+
 # USAGE
 
 > [!WARNING]
@@ -160,6 +166,8 @@ jobs:
           #  CONTINUE_ON_INVALID_INPUT=1
           #  CONTINUE_ON_EMPTY_CHANGES=1
           #  CHANGELOG_FILE=changelog.txt
+          #  YAML_OUTPUT_LR=%0D
+          #  CHANGELOG_FILE_LR=%0D
 ```
 
 > [!NOTE]
