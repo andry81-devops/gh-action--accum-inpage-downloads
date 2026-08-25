@@ -1,4 +1,7 @@
 2026.08.25:
+* changed: userlog.md: user log update
+
+2026.08.25:
 * changed: README.md: warning over a bot crawler protection in the phpbb
 
 2026.02.05:

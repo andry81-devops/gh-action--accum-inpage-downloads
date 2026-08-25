@@ -1,8 +1,19 @@
 > :information_source: this log lists user most visible changes
 
-> :warning: to find all changes use [changelog.txt](https://github.com/andry81-devops/gh-action--accum-inpage-downloads/tree/HEAD/changelog.txt) file in a directory
+> :warning: to find all changes use [changelog.txt](https://github.com/andry81-devops/gh-action--accum-inpage-downloads/tree/HEAD/changelog.txt) file
 
-> :information_source: Legend: :shield: - security; :wrench: - fixed; :new: - new; :pencil: - changed; :twisted_rightwards_arrows: - refactor
+> :open_book: Explanation: https://gist.github.com/andry81/d278e6d129ca1af326eafb67470a2ae3
+
+> :scroll: Legend: :shield: - security; :wrench: - fixed; :new: :sparkles: - new; :pencil: - changed; :twisted_rightwards_arrows: - refactor
+
+## 2023.07.04:
+* :wrench: fixed: action.yml: incorrect `GHWF_REPO_STATS_COMMITS_URL` variable value
+
+## 2023.07.03:
+* :pencil: changed: action.yml: added `[<workflow-name>][<step-number>]` as a prefix in all step names and duplicated it with the step name in the first comment line in all scripts to identify each step in a common pipeline log
+
+## 2023.07.03:
+* :pencil: changed: action.yml: added `git status` to dump list of ready to commit statistic output files
 
 ## 2023.07.02:
 * :new: new: action.yml: added `ENABLE_REPO_STATS_COMMITS_URL_PRINT_TO_CHANGELOG` variable to be able to print Statistic Output Repository commit URL (approximated by +5min date) into being committed changelog file
