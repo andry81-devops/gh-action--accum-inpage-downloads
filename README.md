@@ -60,6 +60,10 @@ All tutorials: https://github.com/andry81/index#tutorials
 
 # gh-action--accum-inpage-downloads@master
 
+> [!WARNING]
+> If a board site has a bot crawler protection, then the underlying script may fail to retrieve values.
+> The logging into the phpbb board using the curl is not supported and still may not work due to a level of protection.
+
 ## Features:
 
 * Repository to track and repository to store traffic statistic can be different, and you may directly point the statistic as commits list:
